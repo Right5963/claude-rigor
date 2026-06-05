@@ -15,7 +15,7 @@
     "anti-hallucination"
   ],
   "license": "MIT",
-  "author": "Raito <rightsigoto@gmail.com>",
+  "author": "Right5963 <rightsigoto@gmail.com>",
   "type": "commonjs",
   "bin": {
     "claude-rigor": "dist/cli.js"

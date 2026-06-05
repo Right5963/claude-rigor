@@ -4,6 +4,7 @@ import {
   stripCodeSpans,
   compilePhrases,
   DEFAULT_SPECULATION_RULES,
+  STRICT_SPECULATION_RULES,
 } from "./speculation";
 
 describe("stripCodeSpans", () => {

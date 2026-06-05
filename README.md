@@ -1,5 +1,9 @@
 # claude-rigor
 
+[![npm version](https://img.shields.io/npm/v/claude-rigor.svg)](https://www.npmjs.com/package/claude-rigor)
+[![license](https://img.shields.io/npm/l/claude-rigor.svg)](./LICENSE)
+[![node](https://img.shields.io/node/v/claude-rigor.svg)](https://nodejs.org)
+
 **Evidence-over-assertion guardrails for [Claude Code](https://claude.com/claude-code).**
 
 Two hooks that mechanically enforce the disciplines that make an AI coding
@@ -108,6 +112,16 @@ The detectors (`speculation`, `goal-declaration`), transcript parser, config
 merge, and settings merge are pure functions with full unit coverage. The hook
 entry scripts and CLI are thin I/O shells over that tested logic.
 
+## Limitations
+
+claude-rigor matches patterns; it does not understand context. Be honest about what that means:
+
+- **Speculation detection is regex-based.** It can false-positive on a legitimate use of a flagged word, and it can miss paraphrased uncertainty. Code spans (backticks) are stripped to reduce noise and the phrase list is configurable, but it is not semantic. An optional LLM-based mode is on the roadmap.
+- **The goal gate checks for a marker, not a *good* goal.** Writing `Goal: x` satisfies it. It enforces the habit of stating intent, not the quality of that intent.
+- **The Stop hook is intentionally strict** and can add friction. That is the trade: a little friction for evidence over assertion. Tune the phrase list or disable a rule in `claude-rigor.json` if it gets in your way.
+
+It is a focused, supplementary guardrail — not a substitute for review. Fail-open by design: if anything errors, the hook does nothing rather than blocking you.
+
 ## License
 
-MIT © Raito
+MIT © Right5963

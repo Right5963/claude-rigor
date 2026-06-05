@@ -33,10 +33,13 @@ export const DEFAULT_SPECULATION_RULES: SpeculationRule[] = [
   { pattern: /\bshould\s+be\s+fine\b/gi, reason: "should be fine (unverified claim)" },
   { pattern: /\bshould\s+be\s+good\b/gi, reason: "should be good (unverified claim)" },
   { pattern: /\bmight\s+work\b/gi, reason: "might work (speculation)" },
-  { pattern: /\bI\s+think\b/gi, reason: "I think (speculation)" },
-  { pattern: /\bI\s+believe\b/gi, reason: "I believe (speculation)" },
-  { pattern: /\bI\s+assume\b/gi, reason: "I assume (speculation)" },
   { pattern: /\b(?:most\s+likely|presumably)\b/gi, reason: "most likely/presumably (speculation)" },
+  // High-signal "claimed done without evidence" phrasing — the actual pain point.
+  { pattern: /\b(?:that\s+)?should\s+(?:fix|do)\s+it\b/gi, reason: "should fix it (unverified)" },
+  { pattern: /\bthis\s+should\s+now\b/gi, reason: "this should now (unverified)" },
+  // NOTE: "I think" / "I believe" / "I assume" are intentionally NOT in the
+  // default set — they fire on legitimate proposals ("I think we should refactor")
+  // far more often than on real speculation, so they live in the strict preset.
   // Japanese
   { pattern: /たぶん/g, reason: "たぶん (speculation)" },
   { pattern: /(?:^|[^「『])多分[、,]/g, reason: "多分 (speculation)" },
@@ -45,6 +48,19 @@ export const DEFAULT_SPECULATION_RULES: SpeculationRule[] = [
   { pattern: /かもしれない/g, reason: "かもしれない (speculation)" },
   { pattern: /可能性が高(?:い|そう)/g, reason: "可能性が高い (speculation)" },
   { pattern: /はず(?:です|だ|だよ|でしょう)/g, reason: "はず (speculation)" },
+];
+
+/**
+ * Stricter preset: the defaults plus first-person hedging ("I think" etc.).
+ * These also fire on legitimate proposals, so they are opt-in — pass this list
+ * to detectSpeculation() (or set it via config) when you want maximum coverage
+ * and can tolerate more false positives.
+ */
+export const STRICT_SPECULATION_RULES: SpeculationRule[] = [
+  ...DEFAULT_SPECULATION_RULES,
+  { pattern: /\bI\s+think\b/gi, reason: "I think (speculation)" },
+  { pattern: /\bI\s+believe\b/gi, reason: "I believe (speculation)" },
+  { pattern: /\bI\s+assume\b/gi, reason: "I assume (speculation)" },
 ];
 
 /** Remove fenced and inline code spans so their contents are not matched. */
