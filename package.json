@@ -1,0 +1,43 @@
+{
+  "name": "claude-rigor",
+  "version": "0.1.0",
+  "description": "Guardrail hooks for Claude Code that enforce evidence over assertion: block edits made without a stated goal, and catch speculative language (\"probably\", \"should work\") before the agent stops.",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "hooks",
+    "ai",
+    "agent",
+    "guardrails",
+    "llm",
+    "rigor",
+    "evidence",
+    "anti-hallucination"
+  ],
+  "license": "MIT",
+  "author": "Raito <rightsigoto@gmail.com>",
+  "type": "commonjs",
+  "bin": {
+    "claude-rigor": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
